@@ -17,34 +17,41 @@ class extractLoad:
     # Fetch prices from Binance API
 
     """
-    Fetches all information on every available pairs on Binance 
-    (cryptocurrency trading platform) as json
-    Converts to DataFrame with pandas built-in read_json
+    WIP
+    """
 
-    Input : None
+    def fetch_api():
+      trends = TrendReq()
+      trends.build_payload(kw_list=['/m/0vpj4_b'], timeframe='today 5-y')
+      trends_df = trends.interest_over_time()
+      trends_df.rename(columns={'/m/0vpj4_b' : 'score'}, inplace=True)
+      return trends_df
+    
+    
+    # Add datetime column - Minor Transformation
+
+    """
+    Adds an additional datetime column for the entire batch of data
+    Format YYYY-MM-DD HH:MM:SS
+    Input : DataFrame
     Output : DataFrame
     """
 
-    def fetch_api(self):
-    	trends = TrendReq()
-	trends.build_payload(kw_list=['/m/0vpj4_b'], timeframe='today 5-y')
-	trends_df = trends.interest_over_time()
-	trends_df.rename(columns={'/m/0vpj4_b' : 'score'}, inplace=True)
-	return trends_df
-    
-
+    def add_datetime(self, dataframe):
+        dt = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        dataframe['datetime'] = dt
+        return dataframe
 
     # Load to Database
 
     """
     Loads DataFrame to BigQuery as a table
-
     Input : DataFrame
     Output : None
     """
 
     def load_bigquery(self, dataframe):
         print("Data Loaded")
-        table_id = 'final-347314.main.binance_api'
+        table_id = 'final-347314.main.pytrends-crypto'
         client = bigquery.Client(credentials=credentials)
         client.load_table_from_dataframe(dataframe, table_id)
