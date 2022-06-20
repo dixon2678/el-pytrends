@@ -20,7 +20,7 @@ class extractLoad:
     WIP
     """
 
-    def fetch_api():
+    def fetch_api(self):
       trends = TrendReq()
       trends.build_payload(kw_list=['/m/0vpj4_b'], timeframe='today 5-y')
       trends_df = trends.interest_over_time()
