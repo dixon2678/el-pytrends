@@ -10,15 +10,11 @@ from pytrends.request import TrendReq
 gcp_json_credentials_dict = json.loads(os.environ['creds'])
 credentials = service_account.Credentials.from_service_account_info(gcp_json_credentials_dict)
 
-# Creds are supplied through Airflow's environment variables
 
 class extractLoad:
 
-    # Fetch prices from Binance API
+    # Fetch prices from Pytrends library
 
-    """
-    WIP
-    """
 
     def fetch_api(self):
       trends = TrendReq()
