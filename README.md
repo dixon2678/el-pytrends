@@ -1,2 +1,2 @@
-# binanceapi-el
-Simple EL script from Binance prices API to Google BigQuery
+# el-pytrends
+Load data from PyTrends library (Topic: Cryptocurrency) as DataFrame, to Google BigQuery table
